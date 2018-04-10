@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Mohamed_Tony_Task</string>
+    <string name="call">CALL</string>
+    <string name="send">Send</string>
+    <string name="network">No Internet , Connect and try again</string>
+    <string name="snackbar_action">Retry</string>
+    <string name="click_long">You can click on item long to goto the next page</string>
+    <string name="somthing_wrong">Oops ! something wrong</string>
+    <string name="toolbar_name">Mohamed Tony</string>
+</resources>

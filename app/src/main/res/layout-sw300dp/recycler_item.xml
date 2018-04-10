@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardbackground"
+        android:elevation="2dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_circle_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:src="@mipmap/user_default"
+                />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp"
+                android:layout_toStartOf="@+id/linearLayout2"
+                android:layout_toEndOf="@+id/user_circle_image"
+                android:textAllCaps="false"
+                android:textColor="@color/tintcolor"
+                android:textSize="20sp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_toLeftOf="@+id/linearLayout2"
+                android:layout_toRightOf="@+id/user_circle_image" />
+            <!--tools:text="user name"-->
+            <!--android:maxWidth="125dp"-->
+
+
+            <TextView
+                android:id="@+id/user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/user_name"
+                android:layout_alignStart="@+id/user_name"
+                android:layout_below="@+id/user_name"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:text="Emailevvvvvvvvvvvvvvvvvffff"
+                android:layout_toStartOf="@+id/linearLayout2"
+                android:textAllCaps="false"
+                android:textColor="@color/textcolor"
+                android:textSize="14sp"
+                android:layout_toLeftOf="@+id/linearLayout2" />
+            <!--android:maxWidth="125dp"-->
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:orientation="vertical"
+                >
+               <!-- android:layout_alignEnd="@+id/user_name"-->
+
+                <Button
+                    android:id="@+id/call_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/buttoncolor"
+                    android:textColor="@color/button_color"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/call" />
+
+                <Button
+                    android:id="@+id/send_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/buttoncolor"
+                    android:textColor="@color/button_color"
+                    android:text="@string/send" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</android.support.constraint.ConstraintLayout>
