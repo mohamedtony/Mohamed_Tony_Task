@@ -56,9 +56,10 @@ public class MainActivity extends AppCompatActivity implements ChecNetworkReciev
     private UsersAdapter usersAdapter;
     private ProgressBar progressBar;
     private ChecNetworkReciever checNetworkReciever;
-    private List<User> usersList = new ArrayList<>();
+    private List<User> usersList;
     private int item_position;
     private Parcelable mListState;
+    private static boolean isLoaded=false;
 
 
 
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements ChecNetworkReciev
 
     //============================== dummy data for testing ======================
     private void dummyData() {
+        usersList=new ArrayList<User>();
         User user = new User();
         user.setContactAddress(" cairo , cairo");
         user.setContactEmail("mohamedtony349@yahoo.com");
@@ -266,11 +268,26 @@ public class MainActivity extends AppCompatActivity implements ChecNetworkReciev
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
 
-                progressBar.setVisibility(View.INVISIBLE);
-                usersList = response.body();
-                usersAdapter = new UsersAdapter(MainActivity.this, MainActivity.this, usersList, recyclerView);
-                recyclerView.setAdapter(usersAdapter);
-                usersAdapter.notifyDataSetChanged();
+
+                Log.e("error", response.toString());
+                if(response.body()!=null) {
+                    Toast.makeText(MainActivity.this, " resposns  ", Toast.LENGTH_SHORT).show();
+                    if (!(response.body() != null && response.body().isEmpty())) {
+                        usersList = response.body();
+                        if(usersList!=null) {
+                            isLoaded=true;
+                            Toast.makeText(MainActivity.this, " users  ", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            usersAdapter = new UsersAdapter(MainActivity.this, MainActivity.this, usersList, recyclerView);
+                            recyclerView.setAdapter(usersAdapter);
+                            usersAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }else {
+                    Toast.makeText(MainActivity.this, " users else ", Toast.LENGTH_SHORT).show();
+                    dummyData();
+                }
+
             }
 
             @Override
@@ -302,6 +319,7 @@ public class MainActivity extends AppCompatActivity implements ChecNetworkReciev
     //==========================================================================================================
     private void initViews() {
         recyclerView = findViewById(R.id.usersRecycler);
+        usersList= new ArrayList<>();
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         usersAdapter = new UsersAdapter(MainActivity.this, MainActivity.this, usersList, recyclerView);
@@ -316,9 +334,56 @@ public class MainActivity extends AppCompatActivity implements ChecNetworkReciev
     public void onChangedNetwork(boolean changed) {
         if (changed) {
             if (usersList.isEmpty()) {
-                progressBar.setVisibility(View.VISIBLE);
+                Toast.makeText(this, " in try ", Toast.LENGTH_SHORT).show();
                 getUserDataProfile();
             }
+
+/*            if(!isLoaded){
+                Toast.makeText(this, " in not loaded ", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.VISIBLE);
+                getUserDataProfile();
+            }else{
+                Toast.makeText(this, " in loaded ", Toast.LENGTH_SHORT).show();
+                dummyData();
+
+            }
+            try{
+
+                if (usersList.isEmpty()) {
+                    Toast.makeText(this, " in try ", Toast.LENGTH_SHORT).show();
+                    //getUserDataProfile();
+                }
+
+            }catch (NullPointerException e){
+
+               Toast.makeText(this, " in else "+e.toString(), Toast.LENGTH_SHORT).show();
+              //  Log.e(" eror stack ",e.toString());
+              //  progressBar.setVisibility(View.INVISIBLE);
+               // getUserDataProfile();
+              //  dummyData();
+            }*/
+  /*          try{
+
+                if (usersList.isEmpty()) {
+                    Toast.makeText(this, " in try ", Toast.LENGTH_SHORT).show();
+                    getUserDataProfile();
+                }
+
+            }catch (NullPointerException e){
+
+                Toast.makeText(this, " in else "+e.toString(), Toast.LENGTH_SHORT).show();
+                Log.e(" eror stack ",e.toString());
+                progressBar.setVisibility(View.INVISIBLE);
+                getUserDataProfile();
+                dummyData();
+            }*/
+         /*   if (usersList!=null&&!usersList.isEmpty()) {
+                Toast.makeText(this, " in if ", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, " in else ", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.VISIBLE);
+                getUserDataProfile();
+            }*/
         }
     }
 
