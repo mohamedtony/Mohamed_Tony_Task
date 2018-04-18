@@ -98,6 +98,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
         public MyViewHolder(View view) {
             super(view);
             userName = (TextView) view.findViewById(R.id.user_name);
+            userName.setSelected(true);
             userEmail = (TextView) view.findViewById(R.id.user_email);
             userImage = (ImageView) view.findViewById(R.id.user_circle_image);
             callButton=(Button)view.findViewById(R.id.call_button);

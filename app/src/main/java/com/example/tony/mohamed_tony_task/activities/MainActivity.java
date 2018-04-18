@@ -268,23 +268,23 @@ public class MainActivity extends AppCompatActivity implements ChecNetworkReciev
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
 
-
-                Log.e("error", response.toString());
                 if(response.body()!=null) {
-                    Toast.makeText(MainActivity.this, " resposns  ", Toast.LENGTH_SHORT).show();
                     if (!(response.body() != null && response.body().isEmpty())) {
-                        usersList = response.body();
-                        if(usersList!=null) {
-                            isLoaded=true;
-                            Toast.makeText(MainActivity.this, " users  ", Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.INVISIBLE);
-                            usersAdapter = new UsersAdapter(MainActivity.this, MainActivity.this, usersList, recyclerView);
-                            recyclerView.setAdapter(usersAdapter);
-                            usersAdapter.notifyDataSetChanged();
+                        if(response.body().hashCode()==200) {
+                            usersList = response.body();
+                            if (usersList != null) {
+                                isLoaded = true;
+                                Toast.makeText(MainActivity.this, " users  " + usersList.get(0).getContactMobile(), Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.INVISIBLE);
+                                usersAdapter = new UsersAdapter(MainActivity.this, MainActivity.this, usersList, recyclerView);
+                                recyclerView.setAdapter(usersAdapter);
+                                usersAdapter.notifyDataSetChanged();
+                            }
                         }
                     }
                 }else {
-                    Toast.makeText(MainActivity.this, " users else ", Toast.LENGTH_SHORT).show();
+                    showNetworkSnakeBar(getString(R.string.somthing_wrong));
+                    progressBar.setVisibility(View.INVISIBLE);
                     dummyData();
                 }
 
@@ -334,56 +334,8 @@ public class MainActivity extends AppCompatActivity implements ChecNetworkReciev
     public void onChangedNetwork(boolean changed) {
         if (changed) {
             if (usersList.isEmpty()) {
-                Toast.makeText(this, " in try ", Toast.LENGTH_SHORT).show();
                 getUserDataProfile();
             }
-
-/*            if(!isLoaded){
-                Toast.makeText(this, " in not loaded ", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.VISIBLE);
-                getUserDataProfile();
-            }else{
-                Toast.makeText(this, " in loaded ", Toast.LENGTH_SHORT).show();
-                dummyData();
-
-            }
-            try{
-
-                if (usersList.isEmpty()) {
-                    Toast.makeText(this, " in try ", Toast.LENGTH_SHORT).show();
-                    //getUserDataProfile();
-                }
-
-            }catch (NullPointerException e){
-
-               Toast.makeText(this, " in else "+e.toString(), Toast.LENGTH_SHORT).show();
-              //  Log.e(" eror stack ",e.toString());
-              //  progressBar.setVisibility(View.INVISIBLE);
-               // getUserDataProfile();
-              //  dummyData();
-            }*/
-  /*          try{
-
-                if (usersList.isEmpty()) {
-                    Toast.makeText(this, " in try ", Toast.LENGTH_SHORT).show();
-                    getUserDataProfile();
-                }
-
-            }catch (NullPointerException e){
-
-                Toast.makeText(this, " in else "+e.toString(), Toast.LENGTH_SHORT).show();
-                Log.e(" eror stack ",e.toString());
-                progressBar.setVisibility(View.INVISIBLE);
-                getUserDataProfile();
-                dummyData();
-            }*/
-         /*   if (usersList!=null&&!usersList.isEmpty()) {
-                Toast.makeText(this, " in if ", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this, " in else ", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.VISIBLE);
-                getUserDataProfile();
-            }*/
         }
     }
 
